@@ -1,0 +1,21 @@
+{
+    "name": "sbash/usermgmt",
+    "description": "An User Management package for laravel project",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Sbash\\Usermgmt\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Navnit Patel",
+            "email": "navnit.amcodr@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "laravel/framework": "^8.12"
+    }
+}
