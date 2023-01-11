@@ -1,7 +1,8 @@
 {
     "name": "sbash/usermgmt",
     "description": "An User Management package for laravel project",
-    "type": "project",
+    "type": "package",
+    "keywords": ["user", "management", "sbash"],
     "license": "MIT",
     "autoload": {
         "psr-4": {
