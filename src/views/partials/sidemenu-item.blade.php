@@ -8,7 +8,7 @@
 	</a>
 	<ul class="nav nav-treeview">              
 	  <li class="nav-item">
-		<a href="javascript:void(0)" class="nav-link">
+		<a href="{{ route('users')}}" class="nav-link">
 		  <i class="fa fa-user nav-icon"></i>
 		  <p>Users</p>
 		</a>

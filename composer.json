@@ -18,5 +18,12 @@
     "minimum-stability": "dev",
     "require": {
         "laravel/framework": "^8.12"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [                
+                "Sbash\\Usermgmt\\Providers\\UserProvider"
+            ]            
+        }
     }
 }
