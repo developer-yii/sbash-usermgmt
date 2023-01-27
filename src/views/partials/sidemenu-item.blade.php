@@ -2,7 +2,7 @@
 	<a href="#" class="nav-link">
 	  <i class="nav-icon fa fa-users"></i>
 	  <p>
-		User Management
+		{{ __('usermgmt::user.sidemenu') }}
 		<i class="fas fa-angle-left right"></i>                
 	  </p>
 	</a>
@@ -10,7 +10,7 @@
 	  <li class="nav-item">
 		<a href="{{ route('users')}}" class="nav-link">
 		  <i class="fa fa-user nav-icon"></i>
-		  <p>Users</p>
+		  <p>{{ __('usermgmt::user.submenu_a') }}</p>
 		</a>
 	  </li>                            
 	</ul>

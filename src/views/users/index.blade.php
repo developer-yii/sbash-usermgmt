@@ -5,19 +5,19 @@
   <div class="container-fluid">
   <div class="row mb-2">
     <div class="col-sm-6">
-    <h1>User Management</h1>
+    <h1>{{ __('usermgmt::user.sidemenu') }}</h1>
     </div>
     <div class="col-sm-6">
     <ol class="breadcrumb float-sm-right">
       <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="fa fa-home"></i></a></li>
-      <li class="breadcrumb-item active">User Management</li>
+      <li class="breadcrumb-item active">{{ __('usermgmt::user.sidemenu') }}</li>
     </ol>
     </div>
   </div>
   <div class="row mb-2">
     <div class="col-sm-12 right-title">
       <div class="dropdown text-right content-right">
-          <button type="button" class="btn btn-block btn-success btn-sm " id="btn-add" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus-square"></i> Add User</button>
+          <button type="button" class="btn btn-block btn-success btn-sm " id="btn-add" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus-square"></i> {{ __('usermgmt::user.page.add_user') }}</button>
         </div>
     </div>
   </div>
@@ -38,7 +38,7 @@
                 <tr>
                   <th>Name</th>
                   <th>Email</th>
-                  <th>Action</th>
+                  <th>{{ __('usermgmt::user.table.action') }}</th>
                 </tr>
               </thead>
             </table>
@@ -56,7 +56,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title mt-0" id="myModalLabel">Add User</h5>
+        <h5 class="modal-title mt-0" id="myModalLabel">{{ __('usermgmt::user.page.add_user') }}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -66,11 +66,13 @@
         <input type="hidden" name="id_edit" id="id_edit" />
         <div class="modal-body">
           <div class="form-group">
-            <label>Role</label>
+            <label>{{ __('usermgmt::user.form.role') }}</label>
             <select class="form-control" name="role" id="role" required>
-              <option value="">Choose Role</option>
-              @foreach ($role as $item)                
-                <option value="{{ $item->name }}">{{ $item->name }}</option>                
+              <option value="">{{ __('usermgmt::user.form.choose_role') }}</option>
+              @foreach ($role as $item)                                
+                @if ($item->name != 'Developer')
+                  <option value="{{ $item->name }}">{{ $item->name }}</option>
+                @endif        
               @endforeach
             </select>
             <span class="error"></span>
@@ -89,7 +91,7 @@
               <span class="error"></span>
           </div>
           <div class="form-group">
-            <label>Password</label>
+            <label>{{ __('usermgmt::user.form.password') }}</label>
             <input type="password" value="{{ old('password') }}" name="password" id="password" class="form-control" />
             <span class="error"></span>
           </div>
@@ -97,8 +99,8 @@
         </div>
         <div class="modal-footer">
           <button type="button" id="btn-close" class="btn btn-secondary waves-effect"
-            data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
+            data-dismiss="modal">{{ __('usermgmt::user.buttons.close') }}</button>
+          <button type="submit" class="btn btn-primary waves-effect waves-light">{{ __('usermgmt::user.buttons.save') }}</button>
         </div>
       </form>
     </div><!-- /.modal-content -->
@@ -115,6 +117,29 @@
         serverSide: true, 
         scrollX: true,
         fixedColumns: true,
+        language: {          
+              "sEmptyTable": '{{__('usermgmt::event.table.empty')}}',
+              "sInfo":  '{{__('usermgmt::event.table.info.sh')}} ' +"_START_ "+'{{__('usermgmt::event.table.info.to')}} '+" _END_"+' {{__('usermgmt::event.table.info.of')}} '+"_TOTAL_"+' {{__('usermgmt::event.table.info.ent')}}',
+              "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+              "sInfoFiltered": "(filtered from _MAX_ total entries)",
+              "sInfoPostFix": "",
+              "sInfoThousands": ",",
+              "sLengthMenu": '{{__('usermgmt::event.table.info.length_a')}} '+'_MENU_'+' {{__('usermgmt::event.table.info.length_b')}}',
+              "sLoadingRecords": "Loading...",
+              "sProcessing": "Processing...",
+              "sSearch": '{{__('usermgmt::event.table.sc')}}',
+              "sZeroRecords": '{{__('usermgmt::event.table.nr')}}',
+              "oPaginate": {
+              "sFirst": "First",
+              "sLast": "Last",
+              "sNext": '{{__('usermgmt::event.table.paginate.next')}}',
+              "sPrevious": '{{__('usermgmt::event.table.paginate.prev')}}',
+              },
+              "oAria": {
+              "sSortAscending": ": activate to sort column ascending",
+              "sSortDescending": ": activate to sort column descending"
+              }
+        },
         ajax: {
           url: "{{ route('users.list') }}",
           type: 'GET'
@@ -139,7 +164,7 @@
     $('#myModal').on('hidden.bs.modal', function(e) {
       $('#forms').attr('action', "{{ route('users.add') }}")
       $('.error').html("");
-      $('#myModalLabel').html('Add User');
+      $('#myModalLabel').html('{{__('usermgmt::user.page.add_user')}}');
       $('#forms')[0].reset();
     })
 
@@ -186,7 +211,7 @@
 
     $(document).on('click', '.edit', function() {
       $('#forms').attr('action', "{{ route('users.update') }}")
-      $('#myModalLabel').html('Edit User');
+      $('#myModalLabel').html('{{__('usermgmt::user.page.edit_user')}}');
       let id = $(this).attr('id');
       $.ajax({
         url: "{{ route('users.edit') }}",
@@ -213,14 +238,14 @@
     $(document).on('click', '.delete', function() {
       let id_del = $(this).attr('id');
       Swal.fire({
-        title: "Are you sure to delete User?",
-        text: 'You wont be able to revert this!',
-        icon: 'warning',
+        title: "{{__('usermgmt::user.alert.alert_1')}}",
+        text: '{{__('usermgmt::user.alert.alert_2')}}',
+        icon: '{{__('usermgmt::user.icon.warning')}}',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        cancelButtonText: 'Cancel',
-        confirmButtonText: "Yes, delete User!"
+        cancelButtonText: '{{__('usermgmt::user.icon.cancel')}}',
+        confirmButtonText: "{{__('usermgmt::user.alert.alert_3')}}"
       }).then((result) => {
         if (result.isConfirmed) {
           $.ajax({

@@ -15,6 +15,7 @@ class UserProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         $this->loadViewsFrom(__DIR__.'/../views', 'usermgmt');
+        $this->loadTranslationsFrom(__DIR__.'/../../lang', 'usermgmt');
 
         $this->publishes([
 	        __DIR__.'/../views' => resource_path('views'),
