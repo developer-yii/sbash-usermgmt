@@ -25,7 +25,7 @@ return [
 		'alert_3' => 'Yes, delete User!',
 	],
 	'icon' => [
-		'warning' => 'Warning',
-		'cancel' => 'Cancel',
+		'warning' => 'warning',
+		'cancel' => 'cancel',
 	],
 ];

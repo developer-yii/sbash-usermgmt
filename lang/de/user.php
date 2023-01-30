@@ -25,7 +25,7 @@ return [
 		'alert_3' => 'Ja, Benutzer löschen!',
 	],
 	'icon' => [
-		'warning' => 'Warnung',
-		'cancel' => 'Absagen',
+		'warning' => 'warning',
+		'cancel' => 'cancel',
 	],
 ];

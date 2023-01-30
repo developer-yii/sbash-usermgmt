@@ -18,6 +18,10 @@ class UserProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__.'/../../lang', 'usermgmt');
 
         $this->publishes([
+            __DIR__ . '/../../seeders/UserPermissionSeeder.php' => database_path('seeders/UserPermissionSeeder.php'),
+        ], 'usermgmt');
+
+        $this->publishes([
 	        __DIR__.'/../views' => resource_path('views'),
 	    ]);
     }

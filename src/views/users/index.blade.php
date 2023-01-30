@@ -235,12 +235,12 @@
     })
 
 
-    $(document).on('click', '.delete', function() {
+    $(document).on('click', '.delete', function() {      
       let id_del = $(this).attr('id');
       Swal.fire({
         title: "{{__('usermgmt::user.alert.alert_1')}}",
         text: '{{__('usermgmt::user.alert.alert_2')}}',
-        icon: '{{__('usermgmt::user.icon.warning')}}',
+        icon: "{{__('usermgmt::user.icon.warning')}}",
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
@@ -271,8 +271,8 @@
                 // })
               }
             },
-            error: function(xhr) {
-              toastr.error(res.message);
+            error: function(xhr) {              
+              toastr.error(xhr.responseJSON.message);
               // Swal.fire({
               //   icon: 'error',
               //   title: 'Error',
