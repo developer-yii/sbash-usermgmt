@@ -50,6 +50,7 @@ return [
 	'permission_not_found' => 'Permission not found',
 	'update_permission_failed' => 'Permission update failed',
 	'update_permission_success' => 'Permission updated',
+	'update_org_settings' => 'Save Organization Settings First!',
 
 	'user_not_found' => 'User not found',
 

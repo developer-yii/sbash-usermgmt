@@ -50,6 +50,7 @@ return [
 	'permission_not_found' => 'Berechtigung nicht gefunden',
 	'update_permission_failed' => 'Berechtigungsaktualisierung fehlgeschlagen',
 	'update_permission_success' => 'Berechtigung aktualisiert',
+	'update_org_settings' => 'Organisationseinstellungen zuerst speichern!',
 
 	'user_not_found' => 'Benutzer nicht gefunden',
 

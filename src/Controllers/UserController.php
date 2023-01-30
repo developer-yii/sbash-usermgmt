@@ -4,6 +4,8 @@ namespace Sbash\Usermgmt\Controllers;
 use Illuminate\Http\Request;
 use Sbash\Usermgmt\Controllers\Controller;
 use Spatie\Permission\Models\Role;
+use Sbash\Orgmgmt\Models\Organization;
+use Sbash\Orgmgmt\Models\UserOrganization;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -15,17 +17,39 @@ class UserController extends Controller
         if (!auth()->user()->can('user_list')) {
           return redirect()->back()->with(['flash_message_error' => trans('usermgmt::permission.no_access_users_page')]);
         }   
-        $role = Role::all();        
+
+        $user = \Auth::user();
+
+        if($user->hasRole('User'))
+        {
+          $role = Role::where('name','User')->get();          
+        }
+        else{
+          $role = Role::all();        
+        }
+
         return view('usermgmt::users.index', compact('role'));
     }
 
     public function getData(Request $request)
     {
-        $orgId = \Auth::user()->organization->id;
-        $user = User::query()
-              ->join('user_organizations','users.id','user_organizations.user_id')
-              ->where('user_organizations.organization_id',$orgId)
-              ->get();
+        $orgId = isset(\Auth::user()->organization->id)?\Auth::user()->organization->id:'';
+
+        if(isset($orgId))
+        {          
+          $user = User::query()
+            ->join('user_organizations','users.id','user_organizations.user_id')
+            ->where('user_organizations.organization_id',$orgId)
+            ->select('users.*')
+            ->get();
+        }     
+        else
+        {          
+          $loginuser = \Auth::user();
+          $user = User::query()
+                ->where('id',$loginuser->id)
+                ->get();
+        }
         if ($request->ajax()) {
           return datatables()->of($user)
             ->addColumn('created', function ($data) {
@@ -59,6 +83,13 @@ class UserController extends Controller
           // return response()->json(['message' => trans('notification.user_add_failed'), 'message' => $validator->errors()->first()], 422);
         }
 
+        $orgId = isset(\Auth::user()->organization->id)?\Auth::user()->organization->id:'';
+
+        if(!$orgId)
+        {
+          return response()->json(['message' => trans('usermgmt::notification.update_org_settings')], 422);
+        }
+
         $user = User::create([
           'name' => $request->name,
           'email' => $request->email,
@@ -66,6 +97,16 @@ class UserController extends Controller
         ]);
 
         $user->assignRole($request->role);
+
+        if($user)
+        {
+          $userOrg = UserOrganization::create([
+            'user_id' => $user->id,
+            'organization_id' => $orgId,
+            'user_type' => 'users',
+            'access_type' => 2,
+          ]); 
+        }
 
         $result = ['status' => true, 'message' => trans('usermgmt::notification.user_added'), 'data' => []];
         return response()->json($result);
