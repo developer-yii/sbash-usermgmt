@@ -35,7 +35,7 @@ class UserController extends Controller
     {
         $orgId = isset(\Auth::user()->organization->id)?\Auth::user()->organization->id:'';
 
-        if(isset($orgId))
+        if($orgId)
         {          
           $user = User::query()
             ->join('user_organizations','users.id','user_organizations.user_id')
