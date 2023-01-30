@@ -21,7 +21,11 @@ class UserController extends Controller
 
     public function getData(Request $request)
     {
-        $user = User::query();
+        $orgId = \Auth::user()->organization->id;
+        $user = User::query()
+              ->join('user_organizations','users.id','user_organizations.user_id')
+              ->where('user_organizations.organization_id',$orgId)
+              ->get();
         if ($request->ajax()) {
           return datatables()->of($user)
             ->addColumn('created', function ($data) {
