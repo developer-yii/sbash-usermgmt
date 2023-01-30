@@ -17,7 +17,9 @@
   <div class="row mb-2">
     <div class="col-sm-12 right-title">
       <div class="dropdown text-right content-right">
+        @can('user_add')
           <button type="button" class="btn btn-block btn-success btn-sm " id="btn-add" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus-square"></i> {{ __('usermgmt::user.page.add_user') }}</button>
+        @endcan
         </div>
     </div>
   </div>
