@@ -21,7 +21,6 @@ class UserPermissionSeeder extends Seeder
             ['name' => 'user_edit', 'guard_name' => 'web'],
             ['name' => 'user_delete', 'guard_name' => 'web'],
             ['name' => 'user_detail', 'guard_name' => 'web'],
-            ['name' => 'user_list', 'guard_name' => 'web'],
         ];
 
         foreach($perms as $key => $per)
