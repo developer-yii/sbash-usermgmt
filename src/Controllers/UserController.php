@@ -33,23 +33,32 @@ class UserController extends Controller
 
     public function getData(Request $request)
     {
+        $loginuser = \Auth::user();
+
         $orgId = isset(\Auth::user()->organization->id)?\Auth::user()->organization->id:'';
 
-        if($orgId)
-        {          
-          $user = User::query()
-            ->join('user_organizations','users.id','user_organizations.user_id')
-            ->where('user_organizations.organization_id',$orgId)
-            ->select('users.*')
-            ->get();
-        }     
+        if($loginuser->can('permission_list'))
+        {
+          $user = User::query();
+        }
         else
         {          
-          $loginuser = \Auth::user();
-          $user = User::query()
-                ->where('id',$loginuser->id)
-                ->get();
+          if($orgId)
+          {          
+            $user = User::query()
+              ->join('user_organizations','users.id','user_organizations.user_id')
+              ->where('user_organizations.organization_id',$orgId)
+              ->select('users.*')
+              ->get();
+          }     
+          else
+          { 
+            $user = User::query()
+                  ->where('id',$loginuser->id)
+                  ->get();
+          }
         }
+
         if ($request->ajax()) {
           return datatables()->of($user)
             ->addColumn('created', function ($data) {
