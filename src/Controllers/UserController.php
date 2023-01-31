@@ -19,14 +19,7 @@ class UserController extends Controller
         }   
 
         $user = \Auth::user();
-
-        if($user->hasRole('User'))
-        {
-          $role = Role::where('name','User')->get();          
-        }
-        else{
-          $role = Role::all();        
-        }
+        $role = ($user->hasRole('User')) ? Role::where('name','User')->get() : Role::all();
 
         return view('usermgmt::users.index', compact('role'));
     }
@@ -35,29 +28,26 @@ class UserController extends Controller
     {
         $loginuser = \Auth::user();
 
-        $orgId = isset(\Auth::user()->organization->id)?\Auth::user()->organization->id:'';
+        $orgId = $loginuser->organization->id ?? '';
 
         if($loginuser->can('permission_list'))
         {
           $user = User::with('roles')->get();
         }
+        else if($orgId)
+        {
+          $user = User::with('roles')
+                ->join('user_organizations','users.id','user_organizations.user_id')
+                ->where('user_organizations.organization_id',$orgId)
+                ->select('users.*')
+                ->get();
+        }     
         else
-        {          
-          if($orgId)
-          {          
-            $user = User::with('roles')
-              ->join('user_organizations','users.id','user_organizations.user_id')
-              ->where('user_organizations.organization_id',$orgId)
-              ->select('users.*')
-              ->get();
-          }     
-          else
-          { 
-            $user = User::with('roles')
-                  ->where('id',$loginuser->id)
-                  ->get();
-          }
-        }
+        { 
+          $user = User::with('roles')
+                ->where('id',$loginuser->id)
+                ->get();
+        }        
 
         if ($request->ajax()) {
           return datatables()->of($user)
