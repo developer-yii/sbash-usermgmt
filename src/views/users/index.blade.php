@@ -40,6 +40,7 @@
                 <tr>
                   <th>Name</th>
                   <th>Email</th>
+                  <th>Role</th>
                   <th>{{ __('usermgmt::user.table.action') }}</th>
                 </tr>
               </thead>
@@ -154,6 +155,10 @@
           {
             data: 'email',
             name: 'email'
+          },
+          {
+            data: 'role',
+            name: 'role'
           },
           {
             data: 'actions',

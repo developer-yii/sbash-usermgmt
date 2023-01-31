@@ -39,13 +39,13 @@ class UserController extends Controller
 
         if($loginuser->can('permission_list'))
         {
-          $user = User::query();
+          $user = User::with('roles')->get();
         }
         else
         {          
           if($orgId)
           {          
-            $user = User::query()
+            $user = User::with('roles')
               ->join('user_organizations','users.id','user_organizations.user_id')
               ->where('user_organizations.organization_id',$orgId)
               ->select('users.*')
@@ -53,7 +53,7 @@ class UserController extends Controller
           }     
           else
           { 
-            $user = User::query()
+            $user = User::with('roles')
                   ->where('id',$loginuser->id)
                   ->get();
           }
@@ -61,6 +61,9 @@ class UserController extends Controller
 
         if ($request->ajax()) {
           return datatables()->of($user)
+            ->addColumn('role', function(User $user){
+                return $user->roles->pluck('name')->implode(', ');
+            })
             ->addColumn('created', function ($data) {
               return date('d M, Y', strtotime($data->created_at));
             })
