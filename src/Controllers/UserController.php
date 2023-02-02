@@ -87,7 +87,7 @@ class UserController extends Controller
 
         $orgId = isset(\Auth::user()->organization->id)?\Auth::user()->organization->id:'';
 
-        if(!$orgId)
+        if(!$orgId && !auth()->user()->can('permission_list'))
         {
           return response()->json(['message' => trans('usermgmt::notification.update_org_settings')], 422);
         }
@@ -100,7 +100,7 @@ class UserController extends Controller
 
         $user->assignRole($request->role);
 
-        if($user)
+        if($user && !auth()->user()->can('permission_list'))
         {
           $userOrg = UserOrganization::create([
             'user_id' => $user->id,
