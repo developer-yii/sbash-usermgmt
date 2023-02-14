@@ -8,7 +8,7 @@
 	</a>
 	<ul class="nav nav-treeview">              
 	  <li class="nav-item">
-		<a href="{{ route('users')}}" class="ml-2 nav-link">
+		<a href="{{ route('users')}}" class="pl-4 nav-link">
 		  <i class="fa fa-user nav-icon"></i>
 		  <p>{{ __('usermgmt::user.submenu_a') }}</p>
 		</a>
