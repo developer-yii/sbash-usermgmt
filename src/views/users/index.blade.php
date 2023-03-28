@@ -210,6 +210,10 @@
           }          
         },
         error: function(xhr) {
+          if (xhr.status === 419) {
+              window.location.reload();
+              return;
+          }
           $($this).find('button[type="submit"]').prop('disabled', false);
           toastr.error(xhr.responseJSON.message)
         }
@@ -236,6 +240,10 @@
           $('#role').val(res.roles[0].name);
         },
         error: function(xhr) {
+          if (xhr.status === 419) {
+              window.location.reload();
+              return;
+          }
           toastr.error(xhr.responseJSON.message);
         }
       })
@@ -278,7 +286,11 @@
                 // })
               }
             },
-            error: function(xhr) {              
+            error: function(xhr) {        
+            if (xhr.status === 419) {
+                window.location.reload();
+                return;
+            }      
               toastr.error(xhr.responseJSON.message);
               // Swal.fire({
               //   icon: 'error',
