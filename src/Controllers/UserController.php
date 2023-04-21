@@ -17,11 +17,16 @@ use App\Models\User;
 class UserController extends Controller
 {
     public function index() {     
-        if (!auth()->user()->can('user_list')) {
-          return redirect()->back()->with(['flash_message_error' => trans('usermgmt::permission.no_access_users_page')]);
-        }   
-
         $user = \Auth::user();
+
+        if (!$user->can('user_list')) {
+          return redirect()->back()->with(['flash_message_error' => trans('usermgmt::permission.no_access_users_page')]);
+        }  
+
+        if(!count($user->userOrganizations()->get()) && !$user->can('permission_list')){
+          return redirect()->back()->with(['flash_message_error' => trans('usermgmt::notification.update_org_settings')]);
+        }
+
         $role = ($user->hasRole('User')) ? Role::where('name','User')->get() : Role::all();
 
         return view('usermgmt::users.index', compact('role'));
@@ -31,7 +36,7 @@ class UserController extends Controller
     {
         $loginuser = \Auth::user();
 
-        $orgId = $loginuser->organization->id ?? '';
+        $orgId = session()->get('organization_id', '');
 
         if($loginuser->can('permission_list'))
         {
@@ -88,7 +93,7 @@ class UserController extends Controller
           // return response()->json(['message' => trans('notification.user_add_failed'), 'message' => $validator->errors()->first()], 422);
         }
 
-        $orgId = isset(\Auth::user()->organization->id)?\Auth::user()->organization->id:'';
+        $orgId = session()->get('organization_id', '');
 
         if(!$orgId && !auth()->user()->can('permission_list'))
         {
