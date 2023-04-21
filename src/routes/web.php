@@ -1,6 +1,7 @@
 <?php
 
 use Sbash\Usermgmt\Controllers\UserController;
+use Sbash\Usermgmt\Controllers\SetPasswordController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['web','auth']], function() {
@@ -12,4 +13,9 @@ Route::group(['middleware' => ['web','auth']], function() {
 	Route::post('users/update', [UserController::class, 'update'])->name('users.update');
 	Route::post('users/add', [UserController::class,'add'])->name('users.add');
 	Route::post('users/delete', [UserController::class, 'delete'])->name('users.delete');
+});
+
+Route::group(['middleware' => ['web']], function() {  	
+  	Route::get('/set-password/{user}', [SetPasswordController::class, 'create'])->name('set-password.create');
+  	Route::post('/store-password', [SetPasswordController::class, 'store'])->name('set-password.store');
 });

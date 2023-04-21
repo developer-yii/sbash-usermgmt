@@ -3,12 +3,15 @@ namespace Sbash\Usermgmt\Controllers;
 
 use Illuminate\Http\Request;
 use Sbash\Usermgmt\Controllers\Controller;
+use Sbash\Usermgmt\Mail\SetPasswordEmail;
 use Spatie\Permission\Models\Role;
 use Sbash\Orgmgmt\Models\Organization;
 use Sbash\Orgmgmt\Models\UserOrganization;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
 use App\Models\User;
 
 class UserController extends Controller
@@ -97,6 +100,32 @@ class UserController extends Controller
           'email' => $request->email,
           'password' => Hash::make($request->password),
         ]);
+
+        $setPasswordLink = URL::temporarySignedRoute(
+            'set-password.create',
+            now()->addHours(24),
+            ['user' => $user->id]
+        );
+
+        // Mail::to($user->email)->from('setaro@mail.com', 'Setaro')->send(new SetPasswordEmail($setPasswordLink));
+        // Mail::send(new SetPasswordEmail($setPasswordLink), [], function ($message) use ($user) {            
+        //     $message->to($user->email);
+        // });
+
+        $subject = "Account Created";
+        $from = env('MAIL_FROM_ADDRESS',"hhc@setaro.de");
+        $name = env('MAIL_FROM_NAME',"Team, setaro GmbH");
+
+        try {
+            Mail::send('usermgmt::mails.set_password',['setPasswordLink' => $setPasswordLink,'name' => $name], function ($message) use ($user,$subject,$from,$name) {
+                $message->from($from,$name)
+                ->to($user->email)
+                ->subject($subject);
+            });
+            
+        } catch (\Exception $e) {            
+            return false;
+        }
 
         $user->assignRole($request->role);
 

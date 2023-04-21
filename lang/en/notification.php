@@ -51,6 +51,8 @@ return [
 	'update_permission_failed' => 'Permission update failed',
 	'update_permission_success' => 'Permission updated',
 	'update_org_settings' => 'Save Organization Settings First!',
+	'Password_changed' => 'Password Changed',
+	'link_expire_message' => 'Sorry, this link has expired.',
 
 	'user_not_found' => 'User not found',
 
