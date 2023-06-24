@@ -16,6 +16,13 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {   
+        if(class_exists('App\Http\Middleware\CheckSubscription') && class_exists('App\Http\Middleware\PreventBackHistory')){        
+            $this->middleware(['check.subscription', 'preventBackHistory']);        
+        }     
+    }
+    
     public function index() {     
         $user = \Auth::user();
 
