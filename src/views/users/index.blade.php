@@ -145,7 +145,14 @@
         },
         ajax: {
           url: "{{ route('users.list') }}",
-          type: 'GET'
+          type: 'GET',
+          error: function(xhr, textStatus, error) {            
+            if (xhr.status == 401) {
+              alert('Your session has expired. Please refresh the page.');
+            } else {
+              alert('An error occurred while processing your request.');
+            }
+          }
         },
         columns: [
           {
