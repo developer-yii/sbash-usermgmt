@@ -69,7 +69,7 @@
         <input type="hidden" name="id_edit" id="id_edit" />
         <div class="modal-body">
           <div class="form-group">
-            <label>{{ __('usermgmt::user.form.role') }}</label>
+            <label class="required">{{ __('usermgmt::user.form.role') }}</label>
             <select class="form-control" name="role" id="role" required>
               <option value="">{{ __('usermgmt::user.form.choose_role') }}</option>
               @foreach ($role as $item)                                
@@ -81,20 +81,20 @@
             <span class="error"></span>
           </div>
           <div class="form-group">
-            <label>Name</label>
+            <label class="required">Name</label>
             <input type="text" class="form-control" value="{{ old('name') }}" name="name" id="name"
               placeholder:="Name" />
               <span class="error"></span>
           </div>
 
           <div class="form-group">
-            <label>Email</label>
+            <label class="required">Email</label>
             <input data-parsley-type="email" type="text" value="{{ old('email') }}" name="email" id="email"
               class="form-control" />
               <span class="error"></span>
           </div>
           <div class="form-group">
-            <label>{{ __('usermgmt::user.form.password') }}</label>
+            <label class="required" id="passwordLabel">{{ __('usermgmt::user.form.password') }}</label>
             <input type="password" value="{{ old('password') }}" name="password" id="password" class="form-control" />
             <span class="error"></span>
           </div>
@@ -180,6 +180,7 @@
       $('.error').html("");
       $('#myModalLabel').html('{{__('usermgmt::user.page.add_user')}}');
       $('#forms')[0].reset();
+      $('#passwordLabel').addClass('required');
     })
 
 
@@ -230,6 +231,7 @@
     $(document).on('click', '.edit', function() {
       $('#forms').attr('action', "{{ route('users.update') }}")
       $('#myModalLabel').html('{{__('usermgmt::user.page.edit_user')}}');
+      $('#passwordLabel').removeClass('required');
       let id = $(this).attr('id');
       $.ajax({
         url: "{{ route('users.edit') }}",
