@@ -20,7 +20,7 @@ return [
 	'no_access_edit_perm' => 'Sie sind nicht berechtigt, die Berechtigung zu bearbeiten.',
 	'no_access_update_perm' => 'Sie sind nicht berechtigt, die Berechtigung zu aktualisieren.',
 	'no_access_delete_perm' => 'Sie sind nicht berechtigt, die Berechtigung zu löschen.',
-	'no_perm_delete_self' => 'Sie können den Selbstbenutzer nicht löschen'
+	'no_perm_delete_self' => 'Sie können den Selbstbenutzer nicht löschen',
 
 	'sweet' => [
 		'title' => [
