@@ -174,10 +174,16 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        if (!auth()->user()->can('user_edit')) {
+        $user = auth()->user();
+        if (!$user->can('user_edit')) {
           return response()->json(['message' => trans('usermgmt::permission.no_perm_update_user')], 422);
         }
+
         $id = $request->id_edit;
+
+        if (!$user->can('permission_edit') && !$user->isOrganizationOwner(session('organization_id')) && $user->id != $id) {
+          return response()->json(['message' => trans('usermgmt::permission.no_perm_update_user')], 422);
+        }
 
         $rules = [
           'name' => ['required', 'string', 'max:255'],
@@ -216,9 +222,24 @@ class UserController extends Controller
 
     public function delete(Request $request)
     {
-        if (!auth()->user()->can('user_delete')) {
+        $user = auth()->user();
+        
+        // Can not delete if user is not having delete permission
+        if (!$user->can('user_delete')) {
           return response()->json(['message' => trans('usermgmt::permission.no_perm_delete_user')], 422);
         }
+
+        // Can not delete if user is not admin or organization owner
+        if (!$user->can('permission_edit') && !$user->isOrganizationOwner(session('organization_id'))) {
+          return response()->json(['message' => trans('usermgmt::permission.no_perm_delete_user')], 422);
+        }
+
+        // Can not delete self
+        if($user->id == $request->id)
+        {
+          return response()->json(['message' => trans('usermgmt::permission.no_perm_delete_self')], 422); 
+        }
+
         $data = User::find($request->id);
 
         if (!$data) {

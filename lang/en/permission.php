@@ -20,6 +20,7 @@ return [
 	'no_access_edit_perm' => 'You dont have rights to edit permission.',
 	'no_access_update_perm' => 'You dont have rights to update permission.',
 	'no_access_delete_perm' => 'You dont have rights to delete permission.',
+	'no_perm_delete_self' => 'You can not delete Self User'
 
 	'sweet' => [
 		'title' => [
