@@ -1,0 +1,92 @@
+{
+  "usermgmt" : {
+    "notification" : {
+      "delete_user_success" : "Benutzer gelöscht",
+      "link_expire_message" : "Entschuldigung, dieser Link ist abgelaufen.",
+      "password_changed" : "Passwort geändert",
+      "update_org_settings" : "Organisationseinstellungen zuerst speichern!",
+      "user_added" : "Benutzer hinzugefügt.",
+      "user_not_found" : "Benutzer nicht gefunden",
+      "user_updated" : "Benutzer aktualisiert."
+    },
+    "permission" : {
+      "no_access_users_page" : "Sie haben keine Rechte, auf die Benutzerseite zuzugreifen.",
+      "no_perm_add_user" : "Sie haben keine Berechtigung, Benutzer hinzuzufügen.",
+      "no_perm_delete_self" : "Sie können den eigenen Benutzer nicht löschen",
+      "no_perm_delete_user" : "Sie haben keine Berechtigung, Benutzer zu löschen.",
+      "no_perm_edit_user" : "Sie haben keine Berechtigung, Benutzer zu bearbeiten.",
+      "no_perm_update_user" : "Sie haben keine Berechtigung, Benutzer zu aktualisieren."
+    },
+    "user" : {
+      "alert" : {
+        "alert_1" : "Sind Sie sicher, den Benutzer zu löschen?",
+        "alert_2" : "Dies kann nicht rückgängig gemacht werden!",
+        "alert_3" : "Ja, Benutzer löschen!"
+      },
+      "buttons" : {
+        "change_password" : "Passwort ändern",
+        "close" : "Schließen",
+        "login" : "Anmelden",
+        "save" : "Speichern"
+      },
+      "form" : {
+        "choose_role" : "Rolle auswählen",
+        "confirm_password" : "Passwort bestätigen",
+        "password" : "Passwort",
+        "role" : "Rolle"
+      },
+      "icon" : {
+        "cancel" : "Abbrechen",
+        "warning" : "Warnung"
+      },
+      "page" : {
+        "add_user" : "Benutzer hinzufügen",
+        "edit_user" : "Benutzer bearbeiten",
+        "set_password_msg" : "Sie sind nur einen Schritt von Ihrem neuen Passwort entfernt, ändern Sie jetzt Ihr Passwort."
+      },
+      "sidemenu" : "Benutzerverwaltung",
+      "submenu_a" : "Benutzer",
+      "table" : {
+        "action" : "Aktion",
+        "buttons" : {
+          "copy" : "Kopieren",
+          "csv" : "CSV-Export",
+          "excel" : "Excel-Export",
+          "pdf" : "PDF-Export"
+        },
+        "date" : "Datum",
+        "empty" : "Keine Daten in der Tabelle verfügbar",
+        "filter" : {
+          "post" : " Einträge",
+          "pre" : "Filterergebnis von "
+        },
+        "from" : "Start",
+        "info" : {
+          "ent" : "Einträge",
+          "length_a" : "Anzeigen",
+          "length_b" : "Einträge pro Seite",
+          "of" : "von",
+          "sh" : "Anzeigen",
+          "to" : "zu"
+        },
+        "leng" : {
+          "ent" : "Einträge",
+          "sh" : "Anzeigen"
+        },
+        "name" : "Name",
+        "nr" : "Keine übereinstimmenden Datensätze gefunden",
+        "paginate" : {
+          "next" : "Weiter",
+          "prev" : "Zurück"
+        },
+        "participant_list_agreement" : "Anfrage zur Teilnehmerlistenvereinbarung",
+        "participants" : "Teilnehmer",
+        "processing" : "Verarbeitung",
+        "sc" : "Suche",
+        "sendEmail" : "E-Mail an ausgewählte Gruppe von Personen",
+        "to" : "An",
+        "waiting" : "Warteliste"
+      }
+    }
+  }
+}

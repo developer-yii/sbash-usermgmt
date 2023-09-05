@@ -1,0 +1,92 @@
+{
+  "usermgmt" : {
+    "notification" : {
+      "delete_user_success" : "User deleted",
+      "link_expire_message" : "Sorry, this link has expired.",
+      "password_changed" : "Password Changed",
+      "update_org_settings" : "Save Organization Settings First!",
+      "user_added" : "User added.",
+      "user_not_found" : "User not found",
+      "user_updated" : "User updated."
+    },
+    "permission" : {
+      "no_access_users_page" : "You dont have rights to access Users page.",
+      "no_perm_add_user" : "You dont have permission to add Users.",
+      "no_perm_delete_self" : "You can not delete Self User",
+      "no_perm_delete_user" : "You dont have permission to delete Users.",
+      "no_perm_edit_user" : "You dont have permission to edit Users.",
+      "no_perm_update_user" : "You dont have permission to update Users."
+    },
+    "user" : {
+      "alert" : {
+        "alert_1" : "Are you sure to delete User?",
+        "alert_2" : "You wont be able to revert this!",
+        "alert_3" : "Yes, delete User!"
+      },
+      "buttons" : {
+        "change_password" : "Change password",
+        "close" : "Close",
+        "login" : "Login",
+        "save" : "Save"
+      },
+      "form" : {
+        "choose_role" : "Choose Role",
+        "confirm_password" : "Confirm Password",
+        "password" : "Password",
+        "role" : "Role"
+      },
+      "icon" : {
+        "cancel" : "cancel",
+        "warning" : "warning"
+      },
+      "page" : {
+        "add_user" : "Add User",
+        "edit_user" : "Edit User",
+        "set_password_msg" : "You are only one step a way from your new password, change your password now."
+      },
+      "sidemenu" : "User Management",
+      "submenu_a" : "Users",
+      "table" : {
+        "action" : "Action",
+        "buttons" : {
+          "copy" : "Copy",
+          "csv" : "CSV Export",
+          "excel" : "Excel Export",
+          "pdf" : "PDF Export"
+        },
+        "date" : "Date",
+        "empty" : "No data available in table",
+        "filter" : {
+          "post" : " Entries",
+          "pre" : "filter result from "
+        },
+        "from" : "Start",
+        "info" : {
+          "ent" : "entries",
+          "length_a" : "Show",
+          "length_b" : "entries per page",
+          "of" : "of",
+          "sh" : "Showing",
+          "to" : "to"
+        },
+        "leng" : {
+          "ent" : "Entries",
+          "sh" : "Show"
+        },
+        "name" : "Name",
+        "nr" : "No matching records found",
+        "paginate" : {
+          "next" : "Next",
+          "prev" : "Previous"
+        },
+        "participant_list_agreement" : "Request Participant List Agreement",
+        "participants" : "Participants",
+        "processing" : "Processing",
+        "sc" : "Search",
+        "sendEmail" : "Email to selected group of people",
+        "to" : "To",
+        "waiting" : "Waiting List"
+      }
+    }
+  }
+}

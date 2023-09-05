@@ -14,6 +14,6 @@
 
 @section('content')
   <div class="center">
-    <p>{{__('usermgmt::notification.link_expire_message')}}</p>
+    <p>{{__('usermgmt')['notification']['link_expire_message']}}</p>
   </div>
 @endsection

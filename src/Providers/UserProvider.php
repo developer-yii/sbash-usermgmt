@@ -16,6 +16,7 @@ class UserProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         $this->loadViewsFrom(__DIR__.'/../views', 'usermgmt');
         $this->loadTranslationsFrom(__DIR__.'/../../lang', 'usermgmt');
+        $this->loadJsonTranslationsFrom(__DIR__.'/../../lang/package', 'usermgmt');
 
         $this->publishes([
             __DIR__ . '/../../database/seeders/UserPermissionSeeder.php' => database_path('seeders/UserPermissionSeeder.php'),

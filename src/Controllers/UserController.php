@@ -27,11 +27,11 @@ class UserController extends Controller
         $user = \Auth::user();
 
         if (!$user->can('user_list')) {
-          return redirect()->back()->with(['flash_message_error' => trans('usermgmt::permission.no_access_users_page')]);
+          return redirect()->back()->with(['flash_message_error' => trans('usermgmt')['permission']['no_access_users_page']]);
         }  
 
         if(!count($user->userOrganizations()->get()) && !$user->can('permission_list')){
-          return redirect()->back()->with(['flash_message_error' => trans('usermgmt::notification.update_org_settings')]);
+          return redirect()->back()->with(['flash_message_error' => trans('usermgmt')['notification']['update_org_settings']]);
         }
 
         $role = ($user->hasRole('User')) ? Role::where('name','User')->get() : Role::all();
@@ -85,7 +85,7 @@ class UserController extends Controller
     public function add(Request $request)
     {
         if (!auth()->user()->can('user_add')) {
-          return response()->json(['message' => trans('usermgmt::permission.no_perm_add_user')], 422);
+          return response()->json(['message' => trans('usermgmt')['permission']['no_perm_add_user']], 422);
         }
         $rules = [
           'name' => ['required', 'string', 'max:255'],
@@ -104,7 +104,7 @@ class UserController extends Controller
 
         if(!$orgId && !auth()->user()->can('permission_list'))
         {
-          return response()->json(['message' => trans('usermgmt::notification.update_org_settings')], 422);
+          return response()->json(['message' => trans('usermgmt')['notification']['update_org_settings']], 422);
         }
 
         $user = User::create([
@@ -151,7 +151,7 @@ class UserController extends Controller
           ]); 
         }
 
-        $result = ['status' => true, 'message' => trans('usermgmt::notification.user_added'), 'data' => []];
+        $result = ['status' => true, 'message' => trans('usermgmt')['notification']['user_added'], 'data' => []];
         return response()->json($result);
         // return response()->json(['message' => trans('notification.user_added')], 200);
     }
@@ -159,12 +159,12 @@ class UserController extends Controller
     public function getDetails(Request $request)
     {
         if (!auth()->user()->can('user_edit')) {
-            return response()->json(['message' => trans('usermgmt::permission.no_perm_edit_user')], 422);
+            return response()->json(['message' => trans('usermgmt')['permission']['no_perm_edit_user']], 422);
         }
         $data = User::find($request->id);
 
         if (!$data) {
-          return response()->json(['message' => trans('usermgmt::notification.user_not_found')], 404);
+          return response()->json(['message' => trans('usermgmt')['notification']['user_not_found']], 404);
         }
 
         $data->roles->pluck('name');
@@ -176,13 +176,13 @@ class UserController extends Controller
     {
         $user = auth()->user();
         if (!$user->can('user_edit')) {
-          return response()->json(['message' => trans('usermgmt::permission.no_perm_update_user')], 422);
+          return response()->json(['message' => trans('usermgmt')['permission']['no_perm_update_user']], 422);
         }
 
         $id = $request->id_edit;
 
         if (!$user->can('permission_edit') && !$user->isOrganizationOwner(session('organization_id')) && $user->id != $id) {
-          return response()->json(['message' => trans('usermgmt::permission.no_perm_update_user')], 422);
+          return response()->json(['message' => trans('usermgmt')['permission']['no_perm_update_user']], 422);
         }
 
         $rules = [
@@ -199,7 +199,7 @@ class UserController extends Controller
 
         $user = User::find($id);
         if (!$user) {
-          return response()->json(['message' => trans('usermgmt::notification.user_not_found')], 404);
+          return response()->json(['message' => trans('usermgmt')['notification']['user_not_found']], 404);
         }
 
         if ($request->password) {
@@ -216,7 +216,7 @@ class UserController extends Controller
         }
         $user->syncRoles($request->role);
 
-        $result = ['status' => true, 'message' => trans('usermgmt::notification.user_updated'), 'data' => []];
+        $result = ['status' => true, 'message' => trans('usermgmt')['notification']['user_updated'], 'data' => []];
         return response()->json($result);        
     }
 
@@ -226,26 +226,26 @@ class UserController extends Controller
         
         // Can not delete if user is not having delete permission
         if (!$user->can('user_delete')) {
-          return response()->json(['message' => trans('usermgmt::permission.no_perm_delete_user')], 422);
+          return response()->json(['message' => trans('usermgmt')['permission']['no_perm_delete_user']], 422);
         }
 
         // Can not delete if user is not admin or organization owner
         if (!$user->can('permission_edit') && !$user->isOrganizationOwner(session('organization_id'))) {
-          return response()->json(['message' => trans('usermgmt::permission.no_perm_delete_user')], 422);
+          return response()->json(['message' => trans('usermgmt')['permission']['no_perm_delete_user']], 422);
         }
 
         // Can not delete self
         if($user->id == $request->id)
         {
-          return response()->json(['message' => trans('usermgmt::permission.no_perm_delete_self')], 422); 
+          return response()->json(['message' => trans('usermgmt')['permission']['no_perm_delete_self']], 422); 
         }
 
         $data = User::find($request->id);
 
         if (!$data) {
-          return response()->json(['message' => trans('usermgmt::notification.user_not_found')], 404);
+          return response()->json(['message' => trans('usermgmt')['notification']['user_not_found']], 404);
         }
         $data->delete();
-        return response()->json(['message' => trans('usermgmt::notification.delete_user_success')], 200);
+        return response()->json(['message' => trans('usermgmt')['notification']['delete_user_success']], 200);
     }
 }

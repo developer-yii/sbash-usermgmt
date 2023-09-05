@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
 use App\Models\User;
+use Carbon\Carbon;
 use DB;
 
 class SetPasswordController extends Controller
@@ -34,8 +35,11 @@ class SetPasswordController extends Controller
         // Update the user's password in the database
         DB::table('users')
             ->where('id', $request->user_id)
-            ->update(['password' => Hash::make($request->password)]);
+            ->update([
+                'password' => Hash::make($request->password),
+                'email_verified_at' => Carbon::now(),
+            ]);
         // Redirect the user to the login page
-        return redirect()->route('login')->with(['flash_message_success' => trans('usermgmt::notification.Password_changed')]);        
+        return redirect()->route('login')->with(['flash_message_success' => trans('usermgmt')['notification']['password_changed']]);        
     }
 }
