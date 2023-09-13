@@ -125,8 +125,8 @@ class UserController extends Controller
         // });
 
         $subject = "Account Created";
-        $from = env('MAIL_FROM_ADDRESS',"hhc@setaro.de");
-        $name = env('MAIL_FROM_NAME',"Team, setaro GmbH");
+        $from = config('mail.from.address');
+        $name = config('mail.from.name');
 
         try {
             Mail::send('usermgmt::mails.set_password',['setPasswordLink' => $setPasswordLink,'name' => $name], function ($message) use ($user,$subject,$from,$name) {

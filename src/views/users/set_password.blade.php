@@ -10,7 +10,7 @@
 
 @section('content')
   <div class="login-logo">
-    <a href="{{ route('home')}} "><b>{{ env('APP_NAME')}}</b></a>
+    <a href="{{ route('home')}} "><b>{{ config('app.name')}}</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
