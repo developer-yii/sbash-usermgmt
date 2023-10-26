@@ -2,13 +2,13 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Set Password</title>
+        <title>{{ __('usermgmt')['mails']['set_password'] }}</title>
     </head>
     <body>
-        <p>Click the link below to set your password:</p>
+        <p>{{ __('usermgmt')['mails']['password_link'] }}:</p>
         <a href="{{ $setPasswordLink }}">{{ $setPasswordLink }}</a>
-        <p><i>This link will be expired in 24 Hrs</i></p>
-        <p>From,</p>
+        <p><i>{{ __('usermgmt')['mails']['link_expired'] }}</i></p>
+        <p>{{ __('usermgmt')['mails']['from'] }},</p>
         <p>{{ $name }}</p>
     </body>    
 </html>
