@@ -136,7 +136,8 @@ class UserController extends Controller
             });
             
         } catch (\Exception $e) {            
-            return false;
+            $result = ['status' => false, 'other' => true, 'message' => $e->getMessage(), 'data' => []];
+            return response()->json($result);
         }
 
         $user->assignRole($request->role);

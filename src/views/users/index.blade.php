@@ -207,6 +207,9 @@
               $("#datatable").DataTable().ajax.reload();
               $('.error').html("");
           }
+          else if(res.status == false && res.other == true){
+            toastr.error(res.message);
+          }
           else{
               first_input = "";
               $('.error').html("");
