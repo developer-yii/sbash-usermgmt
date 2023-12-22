@@ -38,9 +38,9 @@
             <table id="datatable" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Role</th>
+                  <th>{{ __('usermgmt')['user']['table']['name'] }}</th>
+                  <th>{{ __('usermgmt')['user']['table']['email'] }}</th>
+                  <th>{{ __('usermgmt')['user']['form']['role'] }}</th>
                   <th>{{ __('usermgmt')['user']['table']['action'] }}</th>
                 </tr>
               </thead>
@@ -81,14 +81,14 @@
             <span class="error"></span>
           </div>
           <div class="form-group">
-            <label class="required">Name</label>
+            <label class="required">{{ __('usermgmt')['user']['table']['name'] }}</label>
             <input type="text" class="form-control" value="{{ old('name') }}" name="name" id="name"
-              placeholder:="Name" />
+              placeholder:="{{ __('usermgmt')['user']['table']['name'] }}" />
               <span class="error"></span>
           </div>
 
           <div class="form-group">
-            <label class="required">Email</label>
+            <label class="required">{{ __('usermgmt')['user']['table']['email'] }}</label>
             <input data-parsley-type="email" type="text" value="{{ old('email') }}" name="email" id="email"
               class="form-control" />
               <span class="error"></span>
