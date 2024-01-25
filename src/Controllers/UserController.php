@@ -124,12 +124,21 @@ class UserController extends Controller
         //     $message->to($user->email);
         // });
 
-        $subject = "Account Created";
+        $subject = trans('usermgmt')['mails']['account_created_subject'];
+
         $from = config('mail.from.address');
         $name = config('mail.from.name');
 
+        if(session('organization_id')){
+          $org = Organization::find(session('organization_id'));
+          if($org){
+            $from = $org->email;
+            $name = $org->name;
+          }
+        }
+
         try {
-            Mail::send('usermgmt::mails.set_password',['setPasswordLink' => $setPasswordLink,'name' => $name], function ($message) use ($user,$subject,$from,$name) {
+            Mail::send('usermgmt::mails.set_password',['setPasswordLink' => $setPasswordLink,'name' => $request->name,'org' => $name], function ($message) use ($user,$subject,$from,$name) {
                 $message->from($from,$name)
                 ->to($user->email)
                 ->subject($subject);
