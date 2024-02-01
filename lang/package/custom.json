@@ -1,0 +1,101 @@
+{
+  "usermgmt" : {
+    "mails" : {
+      "account_created_footer_sBash" : "-- translated --",
+      "account_created_footer_sFlow" : "-- translated --",
+      "from" : "-- translated --",
+      "link_expired" : "-- translated --",
+      "password_link" : "-- translated --",
+      "set_password" : "-- translated --"
+    },
+    "notification" : {
+      "delete_user_success" : "-- translated --",
+      "link_expire_message" : "-- translated --",
+      "password_changed" : "-- translated --",
+      "update_org_settings" : "-- translated --",
+      "user_added" : "-- translated --",
+      "user_not_found" : "-- translated --",
+      "user_updated" : "-- translated --"
+    },
+    "permission" : {
+      "no_access_users_page" : "-- translated --",
+      "no_perm_add_user" : "-- translated --",
+      "no_perm_delete_self" : "-- translated --",
+      "no_perm_delete_user" : "-- translated --",
+      "no_perm_edit_user" : "-- translated --",
+      "no_perm_update_user" : "-- translated --"
+    },
+    "user" : {
+      "alert" : {
+        "alert_1" : "-- translated --",
+        "alert_2" : "-- translated --",
+        "alert_3" : "-- translated --"
+      },
+      "buttons" : {
+        "change_password" : "-- translated --",
+        "close" : "-- translated --",
+        "login" : "-- translated --",
+        "save" : "-- translated --"
+      },
+      "form" : {
+        "choose_role" : "-- translated --",
+        "confirm_password" : "-- translated --",
+        "password" : "-- translated --",
+        "role" : "-- translated --"
+      },
+      "icon" : {
+        "cancel" : "-- translated --",
+        "warning" : "-- translated --"
+      },
+      "page" : {
+        "add_user" : "-- translated --",
+        "edit_user" : "-- translated --",
+        "set_password_msg" : "-- translated --"
+      },
+      "sidemenu" : "-- translated --",
+      "submenu_a" : "-- translated --",
+      "table" : {
+        "action" : "-- translated --",
+        "buttons" : {
+          "copy" : "-- translated --",
+          "csv" : "-- translated --",
+          "excel" : "-- translated --",
+          "pdf" : "-- translated --"
+        },
+        "date" : "-- translated --",
+        "email" : "-- translated --",
+        "empty" : "-- translated --",
+        "filter" : {
+          "post" : "-- translated --",
+          "pre" : "-- translated --"
+        },
+        "from" : "-- translated --",
+        "info" : {
+          "ent" : "-- translated --",
+          "length_a" : "-- translated --",
+          "length_b" : "-- translated --",
+          "of" : "-- translated --",
+          "sh" : "-- translated --",
+          "to" : "-- translated --"
+        },
+        "leng" : {
+          "ent" : "-- translated --",
+          "sh" : "-- translated --"
+        },
+        "name" : "-- translated --",
+        "nr" : "-- translated --",
+        "paginate" : {
+          "next" : "-- translated --",
+          "prev" : "-- translated --"
+        },
+        "participant_list_agreement" : "-- translated --",
+        "participants" : "-- translated --",
+        "processing" : "-- translated --",
+        "sc" : "-- translated --",
+        "sendEmail" : "-- translated --",
+        "to" : "-- translated --",
+        "waiting" : "-- translated --"
+      }
+    }
+  }
+}

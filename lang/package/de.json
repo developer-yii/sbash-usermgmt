@@ -1,10 +1,21 @@
 {
   "usermgmt" : {
+    "mails" : {
+      "account_created_block1" : "Klicken Sie auf den unten stehenden Link, um Ihr Passwort festzulegen:",
+      "account_created_footer_sBash" : "Vielen Dank,<br>\n\nTeam <<Organization Name>>",
+      "account_created_footer_sFlow" : "Von,<br>\nsFlow",
+      "account_created_salutation" : "Hallo <<invitee name>>,",
+      "account_created_subject" : "Konto erstellt",
+      "from" : "Von",
+      "link_expired" : "Dieser Link wird in 24 Stunden ablaufen",
+      "password_link" : "Klicken Sie auf den Link unten, um Ihr Passwort festzulegen",
+      "set_password" : "Passwort setzen"
+    },
     "notification" : {
       "delete_user_success" : "Benutzer gelöscht",
       "link_expire_message" : "Entschuldigung, dieser Link ist abgelaufen.",
       "password_changed" : "Passwort geändert",
-      "update_org_settings" : "Organisationseinstellungen zuerst speichern!",
+      "update_org_settings" : "Richten Sie zuerst Ihre Organisation ein!",
       "user_added" : "Benutzer hinzugefügt.",
       "user_not_found" : "Benutzer nicht gefunden",
       "user_updated" : "Benutzer aktualisiert."
@@ -12,14 +23,14 @@
     "permission" : {
       "no_access_users_page" : "Sie haben keine Rechte, auf die Benutzerseite zuzugreifen.",
       "no_perm_add_user" : "Sie haben keine Berechtigung, Benutzer hinzuzufügen.",
-      "no_perm_delete_self" : "Sie können den eigenen Benutzer nicht löschen",
+      "no_perm_delete_self" : "Sie können Ihren eigenen Benutzer nicht löschen",
       "no_perm_delete_user" : "Sie haben keine Berechtigung, Benutzer zu löschen.",
       "no_perm_edit_user" : "Sie haben keine Berechtigung, Benutzer zu bearbeiten.",
       "no_perm_update_user" : "Sie haben keine Berechtigung, Benutzer zu aktualisieren."
     },
     "user" : {
       "alert" : {
-        "alert_1" : "Sind Sie sicher, den Benutzer zu löschen?",
+        "alert_1" : "Möchten Sie diesen Benutzer wirklich löschen?",
         "alert_2" : "Dies kann nicht rückgängig gemacht werden!",
         "alert_3" : "Ja, Benutzer löschen!"
       },
@@ -55,6 +66,7 @@
           "pdf" : "PDF-Export"
         },
         "date" : "Datum",
+        "email" : "E-Mail",
         "empty" : "Keine Daten in der Tabelle verfügbar",
         "filter" : {
           "post" : " Einträge",
@@ -67,7 +79,7 @@
           "length_b" : "Einträge pro Seite",
           "of" : "von",
           "sh" : "Anzeigen",
-          "to" : "zu"
+          "to" : "bis"
         },
         "leng" : {
           "ent" : "Einträge",

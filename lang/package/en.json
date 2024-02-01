@@ -1,10 +1,21 @@
 {
   "usermgmt" : {
+    "mails" : {
+      "account_created_block1" : "Click the link below to set your password:",
+      "account_created_footer_sBash" : "Thanks,<br>\n\nTeam <<Organization Name>>",
+      "account_created_footer_sFlow" : "From,<br>\nsFlow",
+      "account_created_salutation" : "Hello <<invitee name>>,",
+      "account_created_subject" : "Account Created",
+      "from" : "From",
+      "link_expired" : "This link will be expired in 24 Hrs",
+      "password_link" : "Click the link below to set your password",
+      "set_password" : "Set Password"
+    },
     "notification" : {
       "delete_user_success" : "User deleted",
       "link_expire_message" : "Sorry, this link has expired.",
       "password_changed" : "Password Changed",
-      "update_org_settings" : "Save Organization Settings First!",
+      "update_org_settings" : "Set up your organization first!",
       "user_added" : "User added.",
       "user_not_found" : "User not found",
       "user_updated" : "User updated."
@@ -12,14 +23,14 @@
     "permission" : {
       "no_access_users_page" : "You dont have rights to access Users page.",
       "no_perm_add_user" : "You dont have permission to add Users.",
-      "no_perm_delete_self" : "You can not delete Self User",
+      "no_perm_delete_self" : "You can not delete your own user",
       "no_perm_delete_user" : "You dont have permission to delete Users.",
       "no_perm_edit_user" : "You dont have permission to edit Users.",
       "no_perm_update_user" : "You dont have permission to update Users."
     },
     "user" : {
       "alert" : {
-        "alert_1" : "Are you sure to delete User?",
+        "alert_1" : "Are you sure to delete this user?",
         "alert_2" : "You wont be able to revert this!",
         "alert_3" : "Yes, delete User!"
       },
@@ -55,6 +66,7 @@
           "pdf" : "PDF Export"
         },
         "date" : "Date",
+        "email" : "Email",
         "empty" : "No data available in table",
         "filter" : {
           "post" : " Entries",
