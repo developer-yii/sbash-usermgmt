@@ -138,11 +138,20 @@ class UserController extends Controller
         }
 
         try {
-            Mail::send('usermgmt::mails.set_password',['setPasswordLink' => $setPasswordLink,'name' => $request->name,'org' => $name], function ($message) use ($user,$subject,$from,$name) {
-                $message->from($from,$name)
-                ->to($user->email)
-                ->subject($subject);
+
+            // Mail::to($user->email)->send(new SetPasswordEmail($setPasswordLink), [], function ($message) use ($user) {            
+            //     $message;
+            // });
+
+            Mail::to($user->email)->send(new SetPasswordEmail($setPasswordLink, $request->name, $name), function ($message) use ($user, $from, $name) {
+                $message->from($from,$name);
             });
+
+            // Mail::send('usermgmt::mails.set_password',['setPasswordLink' => $setPasswordLink,'name' => $request->name,'org' => $name], function ($message) use ($user,$subject,$from,$name) {
+            //     $message->from($from,$name)
+            //     ->to($user->email)
+            //     ->subject($subject);
+            // });
             
         } catch (\Exception $e) {            
             $result = ['status' => false, 'other' => true, 'message' => $e->getMessage(), 'data' => []];
