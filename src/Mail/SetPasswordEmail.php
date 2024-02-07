@@ -41,6 +41,7 @@ class SetPasswordEmail extends Mailable
         $markdownView = 'usermgmt::mails.set_password';
 
         if($this->orgId == config('app.up_organization_id')){
+            app()->setLocale('de');
             $markdownView = 'usermgmt::mails.uplandcare.set_password';
         }
 
