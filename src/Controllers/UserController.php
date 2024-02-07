@@ -143,7 +143,7 @@ class UserController extends Controller
             //     $message;
             // });
 
-            Mail::to($user->email)->send(new SetPasswordEmail($setPasswordLink, $request->name, $name), function ($message) use ($user, $from, $name) {
+            Mail::to($user->email)->send(new SetPasswordEmail($setPasswordLink, $request->name, $name, $orgId), function ($message) use ($user, $from, $name) {
                 $message->from($from,$name);
             });
 

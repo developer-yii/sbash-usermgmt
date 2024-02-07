@@ -13,6 +13,7 @@ class SetPasswordEmail extends Mailable
     public $setPasswordLink;
     public $name;
     public $org;
+    public $orgId;
 
     /**
      * Create a new message instance.
@@ -20,11 +21,12 @@ class SetPasswordEmail extends Mailable
      * @param  string  $setPasswordLink
      * @return void
      */
-    public function __construct($setPasswordLink, $name, $org)
+    public function __construct($setPasswordLink, $name, $org, $orgId)
     {
         $this->setPasswordLink = $setPasswordLink;
         $this->name = $name;
         $this->org = $org;
+        $this->orgId = $orgId;
     }
 
     /**
@@ -36,6 +38,12 @@ class SetPasswordEmail extends Mailable
     {
         $subject = trans('usermgmt')['mails']['account_created_subject'];
 
-        return $this->markdown('usermgmt::mails.set_password')->subject($subject);                    
+        $markdownView = 'usermgmt::mails.set_password';
+
+        if($this->orgId == config('app.up_organization_id')){
+            $markdownView = 'usermgmt::mails.uplandcare.set_password';
+        }
+
+        return $this->markdown($markdownView)->subject($subject);                    
     }
 }
