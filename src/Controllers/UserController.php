@@ -100,7 +100,7 @@ class UserController extends Controller
           'email.email' => trans('validation')['email'],
           'email.max' => trans('validation')['max']['string'],
           'email.unique' => trans('validation')['unique'],
-          'password.unique' => trans('validation')['required'],
+          'password.required' => trans('validation')['required'],
           'password.min' => trans('validation')['min']['string'],
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
