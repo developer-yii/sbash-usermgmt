@@ -1770,7 +1770,7 @@
                                       </p>                            
                                     @else
                                       <p style="padding-top: 1rem;">
-                                        {!! str_replace('<<invitee name>>', $org, __('usermgmt')['mails']['account_created_footer_sBash'])!!}
+                                        {!! str_replace('<<Organization Name>>', $org, __('usermgmt')['mails']['account_created_footer_sBash'])!!}
                                         
                                       </p>
                                     @endif      
