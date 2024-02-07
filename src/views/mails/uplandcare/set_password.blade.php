@@ -109,6 +109,8 @@
                                                 </td>
                                             </tr>                                            
                                         </table>
+                                        <p
+                                            style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;"><p>{{ __('usermgmt')['mails']['link_expired']}}</p>
                                     </td>
                                 </tr>
                                 <tr style="background-color: #5C2483;
