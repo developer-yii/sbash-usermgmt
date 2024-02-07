@@ -92,7 +92,18 @@ class UserController extends Controller
           'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
           'password' => ['required', 'string', 'min:8'],
         ];
-        $validator = Validator::make($request->all(), $rules);
+
+        $messages = [
+          'name.required' => trans('validation')['required'],
+          'name.max' => trans('validation')['max']['string'],
+          'email.required' => trans('validation')['required'],
+          'email.email' => trans('validation')['email'],
+          'email.max' => trans('validation')['max']['string'],
+          'email.unique' => trans('validation')['unique'],
+          'password.unique' => trans('validation')['required'],
+          'password.min' => trans('validation')['min']['string'],
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
             $result = ['status' => false, 'message' => $validator->errors(), 'data' => []];
@@ -209,7 +220,17 @@ class UserController extends Controller
           'role' => 'required',
           'email' => 'required|string|email|max:255,' . $id,
         ];
-        $validator = Validator::make($request->all(), $rules);
+
+        $messages = [
+          'name.required' => trans('validation')['required'],
+          'name.max' => trans('validation')['max']['string'],
+          'role.required' => trans('validation')['required'],
+          'email.required' => trans('validation')['required'],
+          'email.email' => trans('validation')['email'],
+          'email.max' => trans('validation')['max']['string'],
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
             $result = ['status' => false, 'message' => $validator->errors(), 'data' => []];
