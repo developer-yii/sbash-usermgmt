@@ -17,18 +17,18 @@ use App\Models\User;
 class UserController extends Controller
 {
     public function __construct()
-    {   
-        if(class_exists('App\Http\Middleware\CheckSubscription') && class_exists('App\Http\Middleware\PreventBackHistory')){        
-            $this->middleware(['check.subscription', 'preventBackHistory']);        
-        }     
+    {
+        if(class_exists('App\Http\Middleware\PreventBackHistory')){
+            $this->middleware(['preventBackHistory']);
+        }
     }
-    
-    public function index() {     
+
+    public function index() {
         $user = \Auth::user();
 
         if (!$user->can('user_list')) {
           return redirect()->back()->with(['flash_message_error' => trans('usermgmt')['permission']['no_access_users_page']]);
-        }  
+        }
 
         if(!count($user->userOrganizations()->get()) && !$user->can('permission_list')){
           return redirect()->back()->with(['flash_message_error' => trans('usermgmt')['notification']['update_org_settings']]);
@@ -56,13 +56,13 @@ class UserController extends Controller
                 ->where('user_organizations.organization_id',$orgId)
                 ->select('users.*')
                 ->get();
-        }     
+        }
         else
-        { 
+        {
           $user = User::with('roles')
                 ->where('id',$loginuser->id)
                 ->get();
-        }        
+        }
 
         if ($request->ajax()) {
           return datatables()->of($user)
@@ -107,7 +107,7 @@ class UserController extends Controller
 
         if ($validator->fails()) {
             $result = ['status' => false, 'message' => $validator->errors(), 'data' => []];
-            return response()->json($result);            
+            return response()->json($result);
           // return response()->json(['message' => trans('notification.user_add_failed'), 'message' => $validator->errors()->first()], 422);
         }
 
@@ -131,7 +131,7 @@ class UserController extends Controller
         );
 
         // Mail::to($user->email)->from('setaro@mail.com', 'Setaro')->send(new SetPasswordEmail($setPasswordLink));
-        // Mail::send(new SetPasswordEmail($setPasswordLink), [], function ($message) use ($user) {            
+        // Mail::send(new SetPasswordEmail($setPasswordLink), [], function ($message) use ($user) {
         //     $message->to($user->email);
         // });
 
@@ -150,7 +150,7 @@ class UserController extends Controller
 
         try {
 
-            // Mail::to($user->email)->send(new SetPasswordEmail($setPasswordLink), [], function ($message) use ($user) {            
+            // Mail::to($user->email)->send(new SetPasswordEmail($setPasswordLink), [], function ($message) use ($user) {
             //     $message;
             // });
 
@@ -163,8 +163,8 @@ class UserController extends Controller
             //     ->to($user->email)
             //     ->subject($subject);
             // });
-            
-        } catch (\Exception $e) {            
+
+        } catch (\Exception $e) {
             $result = ['status' => false, 'other' => true, 'message' => $e->getMessage(), 'data' => []];
             return response()->json($result);
         }
@@ -178,7 +178,7 @@ class UserController extends Controller
             'organization_id' => $orgId,
             'user_type' => 'users',
             'access_type' => 2,
-          ]); 
+          ]);
         }
 
         $result = ['status' => true, 'message' => trans('usermgmt')['notification']['user_added'], 'data' => []];
@@ -257,13 +257,13 @@ class UserController extends Controller
         $user->syncRoles($request->role);
 
         $result = ['status' => true, 'message' => trans('usermgmt')['notification']['user_updated'], 'data' => []];
-        return response()->json($result);        
+        return response()->json($result);
     }
 
     public function delete(Request $request)
     {
         $user = auth()->user();
-        
+
         // Can not delete if user is not having delete permission
         if (!$user->can('user_delete')) {
           return response()->json(['message' => trans('usermgmt')['permission']['no_perm_delete_user']], 422);
@@ -277,7 +277,7 @@ class UserController extends Controller
         // Can not delete self
         if($user->id == $request->id)
         {
-          return response()->json(['message' => trans('usermgmt')['permission']['no_perm_delete_self']], 422); 
+          return response()->json(['message' => trans('usermgmt')['permission']['no_perm_delete_self']], 422);
         }
 
         $data = User::find($request->id);
