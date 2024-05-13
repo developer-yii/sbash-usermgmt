@@ -28,6 +28,9 @@
       "no_perm_edit_user" : "You dont have permission to edit Users.",
       "no_perm_update_user" : "You dont have permission to update Users."
     },
+    "table" : {
+      "edit_data" : "Edit data"
+    },
     "user" : {
       "alert" : {
         "alert_1" : "Are you sure to delete this user?",

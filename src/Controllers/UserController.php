@@ -73,7 +73,7 @@ class UserController extends Controller
               return date('d M, Y', strtotime($data->created_at));
             })
             ->addColumn('actions', function ($data) {
-              $button = '<button class="btn btn-primary waves-effect waves-light edit" id="' . $data->id . '" data-toggle="tooltip" data-placement="right" title="Edit Data"><i class="fa fa-edit"></i></button>';
+              $button = '<button class="btn btn-primary waves-effect waves-light edit" id="' . $data->id . '" data-toggle="tooltip" data-placement="right" title="'.__('usermgmt')['table']['edit_data'].'"><i class="fa fa-edit"></i></button>';
               /* $button .= '<button class="btn btn-info ml-1 detail" id="' . $data->id . '" name="hapus"><i class="fa fa-eye"></i></button>'; */
               $button .= '<button class="btn btn-danger ml-1 delete" id="' . $data->id . '" name="delete"><i class="fa fa-trash"></i></button>';
               return $button;

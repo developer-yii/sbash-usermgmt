@@ -28,6 +28,9 @@
       "no_perm_edit_user" : "Sie haben keine Berechtigung, Benutzer zu bearbeiten.",
       "no_perm_update_user" : "Sie haben keine Berechtigung, Benutzer zu aktualisieren."
     },
+    "table" : {
+      "edit_data" : "Daten bearbeiten"
+    },
     "user" : {
       "alert" : {
         "alert_1" : "Möchten Sie diesen Benutzer wirklich löschen?",

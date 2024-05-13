@@ -1,6 +1,7 @@
 {
   "usermgmt" : {
     "mails" : {
+      "account_created_block1" : "-- translated --",
       "account_created_footer_sBash" : "-- translated --",
       "account_created_footer_sFlow" : "-- translated --",
       "from" : "-- translated --",
