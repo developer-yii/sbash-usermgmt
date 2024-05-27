@@ -84,9 +84,10 @@ class UserController extends Controller
 
     public function add(Request $request)
     {
-        if (!auth()->user()->can('user_add')) {
+        if (!(auth()->user()->can('user_add') && $this->isOrganizationAdmins(session('organization_id')))) {
           return response()->json(['message' => trans('usermgmt')['permission']['no_perm_add_user']], 422);
         }
+
         $rules = [
           'name' => ['required', 'string', 'max:255'],
           'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -287,5 +288,16 @@ class UserController extends Controller
         }
         $data->delete();
         return response()->json(['message' => trans('usermgmt')['notification']['delete_user_success']], 200);
+    }
+
+    public function isOrganizationAdmins($organizationId = null)
+    {
+      $organizationId = $organizationId ?? session('organization_id');
+
+      $orgAdmin = UserOrganization::where('organization_id', $organizationId)->where('user_id', auth()->user()->id)->whereIn('access_type', [1, 3])->first();
+      if ($orgAdmin) {
+        return true;
+      }
+      return false;
     }
 }
