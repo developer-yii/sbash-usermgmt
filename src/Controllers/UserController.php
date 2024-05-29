@@ -84,7 +84,12 @@ class UserController extends Controller
 
     public function add(Request $request)
     {
-        if (!(auth()->user()->can('user_add') && $this->isOrganizationAdmins(session('organization_id')))) {
+
+        if (!(
+            (auth()->user()->can('user_add') && $this->isOrganizationAdmins(session('organization_id'))) ||
+            (auth()->user()->hasAnyRole(['level_2', 'level_3']) && auth()->user()->can('user_add'))
+        ))
+        {
           return response()->json(['message' => trans('usermgmt')['permission']['no_perm_add_user']], 422);
         }
 
@@ -189,9 +194,13 @@ class UserController extends Controller
 
     public function getDetails(Request $request)
     {
-        if (!auth()->user()->can('user_edit')) {
-            return response()->json(['message' => trans('usermgmt')['permission']['no_perm_edit_user']], 422);
+        if (!(
+          (auth()->user()->can('user_edit') && $this->isOrganizationAdmins(session('organization_id'))) ||
+          (auth()->user()->hasAnyRole(['level_2', 'level_3']) && auth()->user()->can('user_edit'))
+        )) {
+          return response()->json(['message' => trans('usermgmt')['permission']['no_perm_edit_user']], 422);
         }
+
         $data = User::find($request->id);
 
         if (!$data) {
@@ -206,13 +215,12 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $user = auth()->user();
-        if (!$user->can('user_edit')) {
-          return response()->json(['message' => trans('usermgmt')['permission']['no_perm_update_user']], 422);
-        }
-
         $id = $request->id_edit;
 
-        if (!$user->can('permission_edit') && !$user->isOrganizationOwner(session('organization_id')) && $user->id != $id) {
+        if (!(
+          ($user->can('user_edit') && $this->isOrganizationAdmins(session('organization_id')) && $user->id != $id) ||
+          ($user->hasAnyRole(['level_2', 'level_3']) && $user->can('user_edit'))
+        )) {
           return response()->json(['message' => trans('usermgmt')['permission']['no_perm_update_user']], 422);
         }
 
@@ -266,12 +274,11 @@ class UserController extends Controller
         $user = auth()->user();
 
         // Can not delete if user is not having delete permission
-        if (!$user->can('user_delete')) {
-          return response()->json(['message' => trans('usermgmt')['permission']['no_perm_delete_user']], 422);
-        }
-
         // Can not delete if user is not admin or organization owner
-        if (!$user->can('permission_edit') && !$user->isOrganizationOwner(session('organization_id'))) {
+        if (!(
+          ($user->can('user_delete') && $this->isOrganizationAdmins(session('organization_id'))) ||
+          ($user->hasAnyRole(['level_2', 'level_3']) && $user->can('user_delete'))
+        )) {
           return response()->json(['message' => trans('usermgmt')['permission']['no_perm_delete_user']], 422);
         }
 
