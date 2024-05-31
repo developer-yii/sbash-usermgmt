@@ -45,6 +45,6 @@ class SetPasswordEmail extends Mailable
             $markdownView = 'usermgmt::mails.uplandcare.set_password';
         }
 
-        return $this->markdown($markdownView)->subject($subject);                    
+        return $this->markdown($markdownView)->subject($subject);
     }
 }

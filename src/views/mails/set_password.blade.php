@@ -1691,7 +1691,7 @@
                   </td>
                 </tr>
               </tbody>
-            </table>            
+            </table>
             <table align="center" class="container body-drip float-center">
               <tbody>
                 <tr>
@@ -1722,7 +1722,7 @@
                           </td>
                         </tr>
                       </tbody>
-                    </table>                    
+                    </table>
                     <hr />
                     <table class="row">
                       <tbody>
@@ -1734,7 +1734,7 @@
                                     <p>{{ str_replace('<<invitee name>>', $name, __('usermgmt')['mails']['account_created_salutation'])}}</p>
 
                                     <p>{{ __('usermgmt')['mails']['account_created_block1'] }}
-                                    </p>                                   
+                                    </p>
 
                                     <table class="row">
                                         <tbody>
@@ -1746,35 +1746,35 @@
                                                               <p>
                                                                   <table>
                                                                       <tbody>
-                                                                          <tr>                                                                                
+                                                                          <tr>
                                                                               <td class="float-center">
                                                                                   <a href="{{ $setPasswordLink }}" class="button" style="background-color: #3adb76; color: black; padding: 5px 15px;" >{{__('usermgmt')['mails']['set_password']}}</a>
-                                                                              </td>                                                                             
+                                                                              </td>
                                                                           </tr>
                                                                       </tbody>
                                                                   </table>
                                                               </p>
-                                                              
-                                                          </th>                                                            
+
+                                                          </th>
                                                           <th class="expander"></th>
-                                                      </tr>                                                        
-                                                    </table>                                                    
+                                                      </tr>
+                                                    </table>
                                                 </th>
                                             </tr>
                                         </tbody>
-                                    </table>                
-                                    <p>{{ __('usermgmt')['mails']['link_expired']}}</p>   
-                                    @if(config('app.project_alias') == 'sFlow')                                      
-                                      <p style="padding-top: 1rem;">
-                                        {!! __('usermgmt')['mails']['account_created_footer_sFlow']!!}
-                                      </p>                            
+                                    </table>
+                                    @if(config('app.project_alias') == 'sFlow')
+                                    <p style="padding-top: 1rem;">
+                                      {!! __('usermgmt')['mails']['account_created_footer_sFlow']!!}
+                                    </p>
                                     @else
+                                      <p>{{ __('usermgmt')['mails']['link_expired']}}</p>
                                       <p style="padding-top: 1rem;">
                                         {!! str_replace('<<Organization Name>>', $org, __('usermgmt')['mails']['account_created_footer_sBash'])!!}
-                                        
+
                                       </p>
-                                    @endif      
-                                    
+                                    @endif
+
                                 </th>
                                 <th class="expander"></th>
                               </tr>
@@ -1785,7 +1785,7 @@
                     </table>
                     <table class="row collapsed footer">
                       <tbody>
-                        <tr>                          
+                        <tr>
                           <th>
                             @if(config('app.project_alias') == 'sFlow')
                             <p class="text-center" style="padding-top: 1rem;">
@@ -1799,14 +1799,14 @@
                               <a href="{{route('login')}}">{{__('orgmgmt')['mails']['invite_footer_block3']}}</a>
                               @endif
                             </p>
-                          </th>                       
+                          </th>
                         </tr>
                       </tbody>
-                    </table>                                      
+                    </table>
                   </td>
                 </tr>
               </tbody>
-            </table>                
+            </table>
           </center>
         </td>
       </tr>

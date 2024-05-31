@@ -84,37 +84,14 @@ class UserController extends Controller
 
     public function add(Request $request)
     {
-
-        if (!(
-            (auth()->user()->can('user_add') && $this->isOrganizationAdmins(session('organization_id'))) ||
-            (auth()->user()->hasAnyRole(['level_2', 'level_3']) && auth()->user()->can('user_add'))
-        ))
-        {
+        if (!$this->hasAddPermission()) {
           return response()->json(['message' => trans('usermgmt')['permission']['no_perm_add_user']], 422);
         }
 
-        $rules = [
-          'name' => ['required', 'string', 'max:255'],
-          'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-          'password' => ['required', 'string', 'min:8'],
-        ];
-
-        $messages = [
-          'name.required' => trans('validation')['required'],
-          'name.max' => trans('validation')['max']['string'],
-          'email.required' => trans('validation')['required'],
-          'email.email' => trans('validation')['email'],
-          'email.max' => trans('validation')['max']['string'],
-          'email.unique' => trans('validation')['unique'],
-          'password.required' => trans('validation')['required'],
-          'password.min' => trans('validation')['min']['string'],
-        ];
-        $validator = Validator::make($request->all(), $rules, $messages);
+        $validator = $this->validateRequest($request, 'add');
 
         if ($validator->fails()) {
-            $result = ['status' => false, 'message' => $validator->errors(), 'data' => []];
-            return response()->json($result);
-          // return response()->json(['message' => trans('notification.user_add_failed'), 'message' => $validator->errors()->first()], 422);
+          return $this->responseWithValidationErrors($validator);
         }
 
         $orgId = session()->get('organization_id', '');
@@ -124,72 +101,23 @@ class UserController extends Controller
           return response()->json(['message' => trans('usermgmt')['notification']['update_org_settings']], 422);
         }
 
-        $user = User::create([
-          'name' => $request->name,
-          'email' => $request->email,
-          'password' => Hash::make($request->password),
-        ]);
+        $user = $this->createUser($request);
 
-        $setPasswordLink = URL::temporarySignedRoute(
-            'set-password.create',
-            now()->addHours(24),
-            ['user' => $user->id]
-        );
+        $setPasswordLink = $this->generateSetPasswordLink($user);
 
-        // Mail::to($user->email)->from('setaro@mail.com', 'Setaro')->send(new SetPasswordEmail($setPasswordLink));
-        // Mail::send(new SetPasswordEmail($setPasswordLink), [], function ($message) use ($user) {
-        //     $message->to($user->email);
-        // });
-
-        $subject = trans('usermgmt')['mails']['account_created_subject'];
-
-        $from = config('mail.from.address');
-        $name = config('mail.from.name');
-
-        if(session('organization_id')){
-          $org = Organization::find(session('organization_id'));
-          if($org){
-            $from = $org->email;
-            $name = $org->name;
-          }
-        }
+        $emailDetails = $this->getEmailDetails($orgId, $request->name);
 
         try {
-
-            // Mail::to($user->email)->send(new SetPasswordEmail($setPasswordLink), [], function ($message) use ($user) {
-            //     $message;
-            // });
-
-            Mail::to($user->email)->send(new SetPasswordEmail($setPasswordLink, $request->name, $name, $orgId), function ($message) use ($user, $from, $name) {
-                $message->from($from,$name);
-            });
-
-            // Mail::send('usermgmt::mails.set_password',['setPasswordLink' => $setPasswordLink,'name' => $request->name,'org' => $name], function ($message) use ($user,$subject,$from,$name) {
-            //     $message->from($from,$name)
-            //     ->to($user->email)
-            //     ->subject($subject);
-            // });
-
+            $this->sendSetPasswordEmail($user, $setPasswordLink, $emailDetails);
         } catch (\Exception $e) {
-            $result = ['status' => false, 'other' => true, 'message' => $e->getMessage(), 'data' => []];
-            return response()->json($result);
+            return $this->responseWithException($e);
         }
 
         $user->assignRole($request->role);
-
-        if($user && !auth()->user()->can('permission_list'))
-        {
-          $userOrg = UserOrganization::create([
-            'user_id' => $user->id,
-            'organization_id' => $orgId,
-            'user_type' => 'users',
-            'access_type' => 2,
-          ]);
-        }
+        $this->assignUserToOrganization($user, $orgId);
 
         $result = ['status' => true, 'message' => trans('usermgmt')['notification']['user_added'], 'data' => []];
         return response()->json($result);
-        // return response()->json(['message' => trans('notification.user_added')], 200);
     }
 
     public function getDetails(Request $request)
@@ -306,5 +234,94 @@ class UserController extends Controller
         return true;
       }
       return false;
+    }
+
+    private function hasAddPermission()
+    {
+        return (auth()->user()->can('user_add') && $this->isOrganizationAdmins(session('organization_id'))) ||
+              (auth()->user()->hasAnyRole(['level_2', 'level_3']) && auth()->user()->can('user_add'));
+    }
+
+    private function validateRequest($request, $action)
+    {
+        $rules = [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8'],
+        ];
+
+        $messages = [
+            'name.required' => trans('validation.required'),
+            'name.max' => trans('validation.max.string'),
+            'email.required' => trans('validation.required'),
+            'email.email' => trans('validation.email'),
+            'email.max' => trans('validation.max.string'),
+            'email.unique' => trans('validation.unique'),
+            'password.required' => trans('validation.required'),
+            'password.min' => trans('validation.min.string'),
+        ];
+
+        return Validator::make($request->all(), $rules, $messages);
+    }
+
+    private function responseWithValidationErrors($validator)
+    {
+        return response()->json(['status' => false, 'message' => $validator->errors(), 'data' => []]);
+    }
+
+    private function createUser($request)
+    {
+        return User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+    }
+
+    private function generateSetPasswordLink($user)
+    {
+        return config('app.project_alias') === 'sFlow'
+            ? URL::signedRoute('set-password.create', ['user' => $user->id])
+            : URL::temporarySignedRoute('set-password.create', now()->addHours(24), ['user' => $user->id]);
+    }
+
+    private function getEmailDetails($orgId, $userName)
+    {
+        $from = config('mail.from.address');
+        $name = config('mail.from.name');
+
+        if ($orgId) {
+            $org = Organization::find($orgId);
+            if ($org) {
+                $from = $org->email;
+                $name = $org->name;
+            }
+        }
+
+        return ['from' => $from, 'name' => $name, 'userName' => $userName];
+    }
+
+    private function sendSetPasswordEmail($user, $setPasswordLink, $emailDetails)
+    {
+        Mail::to($user->email)->send(new SetPasswordEmail($setPasswordLink, $emailDetails['userName'], $emailDetails['name'], session('organization_id')), function ($message) use ($user, $emailDetails) {
+            $message->from($emailDetails['from'], $emailDetails['name']);
+        });
+    }
+
+    private function assignUserToOrganization($user, $orgId)
+    {
+        if ($user && !auth()->user()->can('permission_list')) {
+            UserOrganization::create([
+                'user_id' => $user->id,
+                'organization_id' => $orgId,
+                'user_type' => 'users',
+                'access_type' => 2,
+            ]);
+        }
+    }
+
+    private function responseWithException($e)
+    {
+        return response()->json(['status' => false, 'other' => true, 'message' => $e->getMessage(), 'data' => []]);
     }
 }
