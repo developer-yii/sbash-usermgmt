@@ -1768,7 +1768,7 @@
                                       {!! __('usermgmt')['mails']['account_created_footer_sFlow']!!}
                                     </p>
                                     @else
-                                      <p>{{ __('usermgmt')['mails']['link_expired']}}</p>
+                                      {{-- <p>{{ __('usermgmt')['mails']['link_expired']}}</p> --}}
                                       <p style="padding-top: 1rem;">
                                         {!! str_replace('<<Organization Name>>', $org, __('usermgmt')['mails']['account_created_footer_sBash'])!!}
 

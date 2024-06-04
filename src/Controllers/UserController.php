@@ -280,9 +280,7 @@ class UserController extends Controller
 
     private function generateSetPasswordLink($user)
     {
-        return config('app.project_alias') === 'sFlow'
-            ? URL::signedRoute('set-password.create', ['user' => $user->id])
-            : URL::temporarySignedRoute('set-password.create', now()->addHours(24), ['user' => $user->id]);
+        return URL::signedRoute('set-password.create', ['user' => $user->id]);
     }
 
     private function getEmailDetails($orgId, $userName)
